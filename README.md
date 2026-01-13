@@ -29,6 +29,7 @@ C:\Users\<USERNAME>\.ssh\id_rsa       ← private key
 C:\Users\<USERNAME>\.ssh\id_rsa.pub   ← public key
 ⚠️ Do NOT share id_rsa (private key).
 
+---
 
 2. Register the Public Key with EGA
 
@@ -40,6 +41,7 @@ Step 5: Copy the full content and paste it into EGA
 Step 6: Update key
 This authorizes your account for SFTP uploads.
 
+---
 
 3. Connect to EGA INBOX Using FileZilla
 Required
@@ -62,6 +64,7 @@ Accept the host key when prompted
 
 You will be logged into your EGA INBOX home directory.
 
+---
 
 4. Upload Files to the INBOX
 
@@ -91,5 +94,7 @@ Check status here:
 👉 https://submission.ega-archive.org/files
 Error	Contact EGA Helpdesk
 ➡️ Only when status = “Available” can files be linked to Runs or Analyses.
+
+---
 
 5. Link Files to Metadata (Next Steps)
