@@ -22,11 +22,14 @@ Run:
 
 When prompted:
 File location → press Enter (default)
+
 Passphrase → optional but recommended
 
 This creates:
 C:\Users\<USERNAME>\.ssh\id_rsa       ← private key
+
 C:\Users\<USERNAME>\.ssh\id_rsa.pub   ← public key
+
 ⚠️ Do NOT share id_rsa (private key).
 
 ---
