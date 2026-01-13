@@ -6,7 +6,6 @@ This README describes how to:
 2. Connect to the EGA INBOX using FileZilla
 3. Upload sequencing files
 4. Check file processing status
-5. Link files to EGA metadata (Runs / Analyses)
 
 ---
 
@@ -66,7 +65,7 @@ FileZilla Configuration
 
 Step 1: Open FileZilla
 
-Step 1: Go to File → Site Manager → New Site
+Step 2: Go to File → Site Manager → New Site
 
 Set:
 Protocol:	SFTP – SSH File Transfer Protocol
@@ -136,4 +135,4 @@ Error	Contact EGA Helpdesk
 
 ---
 
-5. Link Files to Metadata (Next Steps)
+
