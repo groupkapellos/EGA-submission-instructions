@@ -37,11 +37,17 @@ C:\Users\<USERNAME>\.ssh\id_rsa.pub   ← public key
 2. Register the Public Key with EGA
 
 Step 1: Log in to the EGA Submitter Portal
+
 Step 2: Go to Profile / Edit
+
 Step 3: Open Public Keys
+
 Step 4: Open id_rsa.pub in a text editor
+
 Step 5: Copy the full content and paste it into EGA
+
 Step 6: Update key
+
 This authorizes your account for SFTP uploads.
 
 ---
@@ -51,7 +57,7 @@ Required
 - FileZilla (FTP client)
 - Your EGA username
 - Your private key (id_rsa)
-- 
+  
 FileZilla Configuration
 Step 1: Open FileZilla
 Step 1: Go to File → Site Manager → New Site
