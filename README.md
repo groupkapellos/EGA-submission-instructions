@@ -57,9 +57,9 @@ This authorizes your account for SFTP uploads.
 Required
 
 - FileZilla (FTP client)
-- 
+  
 - Your EGA username
-- 
+  
 - Your private key (id_rsa)
   
 FileZilla Configuration
