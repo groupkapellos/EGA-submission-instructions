@@ -111,8 +111,8 @@ Using FileZilla, upload raw files to:
 
 EGA will:
 
-a. Encrypt files
-b. Generate checksums
+1. Encrypt files\
+2. Generate checksums
    
 ### Option B: Manual Encryption (Used in previous workflow - and recommended)
 
