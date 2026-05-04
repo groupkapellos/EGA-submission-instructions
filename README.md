@@ -207,7 +207,7 @@ The Analyses section in EGA is intended for processed or derived data files (e.g
 In this submission, only sequencing files (FASTQ) are provided, and therefore analyses objects are not required.
 
 Reason:
-- Data already processed / multiplexed\
+- Data already processed / multiplexed
 - No raw analysis objects submitted
 
  </details>
