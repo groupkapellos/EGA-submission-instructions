@@ -1,4 +1,4 @@
-# EGA Data Submission – Upload & Metadata Linking Guide
+# EGA data submission - upload & metadata linking guide
 
 This repository provides a practical guide for submitting sequencing data to the European Genome-phenome Archive, including file upload, encryption, and metadata linking.
 
@@ -24,13 +24,13 @@ This guide covers:
 <details>
 <summary>1. Authentication (SSH Key Setup) - already configured for Kapellos lab</summary>
 
-If you are using a shared lab account (e.g., PI account), authentication may already be configured.
+### If you are using a shared lab account (e.g., PI account), authentication may already be configured.
 
 EGA requires SSH authentication for secure uploads.
 
 Generate SSH key (Windows)
 
-```
+```bash
 ssh-keygen -t rsa -b 4096 -C "ega_submission"
 ```
 
@@ -39,7 +39,6 @@ Default files created:
 C:\Users\<USERNAME>\.ssh\id_rsa\
 C:\Users\<USERNAME>\.ssh\id_rsa.pub
 
->[!WARNING]
 >Never share your private key (id_rsa).
 
 ### Register Public Key in EGA
@@ -54,7 +53,7 @@ Paste and save
 ---
 
 <details>
-<summary>Connecting to EGA INBOX</summary>
+<summary>2. Connecting to EGA INBOX</summary>
 
 ### Option A: FileZilla (GUI)
 
@@ -71,20 +70,19 @@ Settings:
 <img width="886" height="471" alt="Screenshot 2026-05-04 153647" src="https://github.com/user-attachments/assets/61aa3530-0528-4bd4-8d1a-cdf0b25ec2f9" />
 
 
-> [!NOTE]
 > FileZilla may be unstable for large uploads.
 
 ### Option B: SFTP (Recommended)
 
 More reliable for large datasets.
 
-```
+```PowerShell
 sftp -i ~/.ssh/id_ed25519 <username>@inbox.ega-archive.org
 ```
 
 Example using PowerShell:
 
-```
+```PowerShell
 sftp -i ~/.ssh/id_ed25519 your_username@inbox.ega-archive.org
 ```
 
@@ -97,117 +95,131 @@ sftp -i ~/.ssh/id_ed25519 your_username@inbox.ega-archive.org
 
 </details>
 
-🔒 File Encryption
+---
 
-EGA requires files encrypted with Crypt4GH.
 
-Option A: Automatic Encryption
+<details>
+<summary>3. File Encryption</summary>
 
-Upload raw files to:
+### EGA requires files encrypted with Crypt4GH.
+
+### Option A: Automatic Encryption
+
+Using FileZilla, upload raw files to:
 
 /to-encrypt
 
 EGA will:
 
-Encrypt files
-Generate checksums
-Option B: Manual Encryption (Used in this workflow)
+a. Encrypt files
+b. Generate checksums
+   
+### Option B: Manual Encryption (Used in previous workflow - and recommended)
 
 Install Crypt4GH:
 
+```bash
 pip install crypt4gh
+```
+
 Create Public Key File
 
 Save as ingestion.pubkey:
 
+```bash
 -----BEGIN CRYPT4GH PUBLIC KEY-----
 SUtKgXbC5tBCzM69wvGvFl5qY5OR/+20s5ZyNSebRFw=
 -----END CRYPT4GH PUBLIC KEY-----
+```
+
 Encrypt Files
+
+```PowerShell
 crypt4gh encrypt --recipient_pk ingestion.pubkey < input.fastq.gz > output.fastq.gz.c4gh
+```
 
-⚠️ Do not overwrite input files.
+> Do not overwrite input files. I'd recommend adding a copy of the files first in a folder called "to encrypt" and the encrypted ones in another folder called "encrypted"
 
-📤 Uploading Files
+</details>
 
-Upload encrypted files to:
+---
+
+<details>
+<summary>4. Uploading Files</summary>
+
+### Upload encrypted files to:
 
 /encrypted
 
-Using SFTP:
+Or using SFTP:
 
+```PowerShell
 put output.fastq.gz.c4gh
+```
 
-⚠️ Uploads may be slow and require manual handling depending on network stability.
+> Uploads may be slow and require manual handling depending on network stability.
 
-⏳ File Processing Status
+### File Processing Status
 
-After upload, EGA processes files and computes checksums.
+After upload, EGA processes files and computes checksums.\
+[Check status](https://submission.ega-archive.org/files)
 
-Check status:
-👉 https://submission.ega-archive.org/files
+**Status Meaning:**
+- Processing → wait
+- Error → contact helpdesk
+- Available → ready for metadata linking
+  
+</details>
 
-Status Meaning
-Processing → wait
-Error → contact helpdesk
-Available → ready for metadata linking
-🧬 Metadata Structure
+---
 
-EGA submission hierarchy:
+<details>
+<summary>5. Metadata Structure</summary>
 
-Study
- ├── Samples
- ├── Experiments
- ├── Runs
- ├── Analyses (optional)
+### EGA submission hierarchy:
+
+Study\
+ ├── Samples\
+ ├── Experiments\
+ ├── Runs\
+ ├── Analyses (optional)\
  └── Dataset
-📊 Sample Metadata
 
-Example file: samples.csv
+### Sample Metadata
 
-alias,title,description,biological_sex,subject_id,phenotype,biosample_id,case_control,organism_part
-B1,mixed,multiplexed pool B1,...,unknown,many,mixed,B1,both,mixed
-Notes
-alias must match Run metadata
-Multiplexed samples → use subject_id = many
-🧾 Run Metadata
+Example file: [sample.csv](https://github.com/groupkapellos/EGA-submission-instructions/blob/main/sample.csv)
 
-Example file: runs.csv
+> Alias must match Run metadata
 
-sample,file1
-B1,/file_R1.fastq.gz.c4gh
-B1,/file_R2.fastq.gz.c4gh
-Rules
-File names must match exactly those in INBOX
-Include .c4gh extension
-One row per file
-⚠️ Analyses Section
 
-Not used in this project.
+### Run Metadata
+
+Example file: [runs.csv](https://github.com/groupkapellos/EGA-submission-instructions/blob/main/runs.csv)
+
+**Rules**
+- File names must match exactly those in INBOX
+- Include .c4gh extension
+- One row per file
+
+### Analyses Section
+
+The Analyses section in EGA is intended for processed or derived data files (e.g., alignment files, variant calls, or other downstream results).\
+In this submission, only sequencing files (FASTQ) are provided, and therefore analyses objects are not required.
 
 Reason:
+- Data already processed / multiplexed\
+- No raw analysis objects submitted
 
-Data already processed / multiplexed
-No raw analysis objects submitted
-📦 Dataset Creation
+ </details>
 
-After linking:
+ ---
 
-Create Dataset
-Attach Runs
-Define access policy
-Submit
-⚠️ Common Pitfalls
-FileZilla connection drops
-Slow or manual uploads required
-Confusion between /to-encrypt and /encrypted
-File size display (~49 KB) is not meaningful
-Metadata mismatches (sample/file names must be exact)
-✅ Submission Checklist
- SSH key configured
- Files encrypted (.c4gh)
- Files uploaded to INBOX
- Status = Available
- Samples uploaded
- Runs linked correctly
+## Submission Checklist
+- [x] SSH key configured
+- [x] Files encrypted (.c4gh)
+- [x] Files uploaded to INBOX
+- [x] Status = Available
+- [x] Samples (csv) uploaded
+- [x] Runs (csv) linked correctly
+
 
