@@ -116,7 +116,7 @@ EGA will:
    
 ### Option B: Manual Encryption (Used in previous workflow - and recommended)
 
-The next step, `Install Crypt4GH`, must be completed in a Linux environment.
+!NOTE: the next step, `Install Crypt4GH`, must be completed in a Linux environment.
 
 Install Crypt4GH:
 
