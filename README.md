@@ -130,7 +130,7 @@ Use the public key provided below to encrypt the files for EGA ingestion. You do
 
 Create the file using a text editor such as nano:
 
-nano ingestion.pubkey
+`nano ingestion.pubkey`
 
 Paste the following key exactly as shown:
 
