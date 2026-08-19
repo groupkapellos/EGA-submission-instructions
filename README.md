@@ -116,21 +116,34 @@ EGA will:
    
 ### Option B: Manual Encryption (Used in previous workflow - and recommended)
 
+The next step, `Install Crypt4GH`, must be completed in a Linux environment.
+
 Install Crypt4GH:
 
 ```bash
 pip install crypt4gh
 ```
 
-Create Public Key File
+Save the EGA Ingestion Public Key
 
-Save as ingestion.pubkey:
+Use the public key provided below to encrypt the files for EGA ingestion. You do not need to generate a new key.
+
+Create the file using a text editor such as nano:
+
+nano ingestion.pubkey
+
+Paste the following key exactly as shown:
 
 ```bash
 -----BEGIN CRYPT4GH PUBLIC KEY-----
 SUtKgXbC5tBCzM69wvGvFl5qY5OR/+20s5ZyNSebRFw=
 -----END CRYPT4GH PUBLIC KEY-----
 ```
+
+Save the file by pressing Ctrl+O, then Enter, and exit with Ctrl+X.
+
+The resulting ingestion.pubkey file will be used in the Crypt4GH encryption command.
+
 
 Encrypt Files
 
